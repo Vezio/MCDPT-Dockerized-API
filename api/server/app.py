@@ -11,10 +11,6 @@ app.logger.info("Loading configuration file")
 app.config.from_pyfile("config.py")
 app.logger.info("Finished loading configuration file")
 
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-
 @app.route("/login/<cwid>/<password>", methods=["POST"])
 def login(cwid, password):
     r = requests.get(app.config["DB_INTERFACE_URL"] + "/user/login/" + cwid + "/" + password)
