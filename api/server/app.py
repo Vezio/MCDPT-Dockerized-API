@@ -53,11 +53,10 @@ def listSharedSessions(cwid):
         r = requests.get(app.config["DB_INTERFACE_URL"] + "/sessions/shared/user/" + cwid)
         if r.status_code == 200:
             return make_response(jsonify(r.json()), 200, {"Content-Type": "application/json"})
+        elif r.status_code == 204:
+            return make_response(jsonify(message="User has no sessions"), 204, {"Content-Type": "application/json"})
         elif r.status_code == 404:
-            if r.json()["message"] == "User has no sessions":
-                return make_response(jsonify(message="User has no sessions"), 404, {"Content-Type": "application/json"})
-            else:
-                return make_response(jsonify(message="There is no user with that cwid"), 404, {"Content-Type": "application/json"})
+            return make_response(jsonify(message="There is no user with that cwid"), 404, {"Content-Type": "application/json"})
         elif r.status_code == 500:
             return make_response(jsonify(message="Unexpected server error"), 500, {"Content-Type": "application/json"})
     else:
