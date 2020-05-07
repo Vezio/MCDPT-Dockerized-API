@@ -37,11 +37,10 @@ def listSessions(cwid):
         r = requests.get(app.config["DB_INTERFACE_URL"] + "/sessions/user/" + cwid)
         if r.status_code == 200:
             return make_response(jsonify(r.json()), 200, {"Content-Type": "application/json"})
+        elif r.status_code == 204:
+            return make_response(jsonify(message="User has no sessions"), 204, {"Content-Type": "application/json"})
         elif r.status_code == 404:
-            if r.json()["message"] == "User has no sessions":
-                return make_response(jsonify(message="User has no sessions"), 404, {"Content-Type": "application/json"})
-            else:
-                return make_response(jsonify(message="There is no user with that cwid"), 404, {"Content-Type": "application/json"})
+            return make_response(jsonify(message="There is no user with that cwid"), 404, {"Content-Type": "application/json"})
         elif r.status_code == 500:
             return make_response(jsonify(message="Unexpected server error"), 500, {"Content-Type": "application/json"})
     else:
@@ -70,6 +69,19 @@ def getSession(cwid, sessionNumber):
             return make_response(jsonify(r.json()), 200, {"Content-Type": "application/json"})
         elif r.status_code == 404:
             return make_response(jsonify(message="There is no session with that session number"), 404, {"Content-Type": "application/json"})
+        elif r.status_code == 500:
+            return make_response(jsonify(message="Unexpected server error"), 500, {"Content-Type": "application/json"})
+    else:
+        return make_response(jsonify(message="Not authenticated to make that request"), 401, {"Content-Type": "application/json"})
+
+@app.route("/sessions/shared/get/<cwid>/<sessionCWID>/<sessionNumber>", methods=["GET"])
+def getSharedSession(cwid, sessionCWID, sessionNumber):
+    if "cwid" in session and session["cwid"] == cwid:
+        r = requests.get(app.config["DB_INTERFACE_URL"] + "/getSharedSession/" + cwid + "/" + sessionCWID + "/" + sessionNumber)
+        if r.status_code == 200:
+            return make_response(jsonify(r.json()), 200, {"Content-Type": "application/json"})
+        elif r.status_code == 404:
+            return make_response(jsonify(message="There is no session with that session number or the session had not been shared"), 404, {"Content-Type": "application/json"})
         elif r.status_code == 500:
             return make_response(jsonify(message="Unexpected server error"), 500, {"Content-Type": "application/json"})
     else:
