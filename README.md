@@ -2,10 +2,13 @@
 Dockerized service: flask server. The flask server 
 is an interface to the MCDPT-Dockerized-DB and future services to come.
 
-Authors: 
-Tyler Rimaldi, 
-Daniel Grossmann,
-Dr. Donald Schwartz
+Authors 
+
+Tyler Rimaldi->Tyler.Rimaldi1@Marist.edu,
+
+Daniel Grossmann->Daniel.Grossmann1@Marist.edu,
+
+Dr. Donald Schwartz->Donald.Schwartz@Marist.edu
 
 ## How to setup this repository
 Create an instance folder in `./app/`: `./app/instance`
