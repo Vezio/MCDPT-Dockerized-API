@@ -39,6 +39,8 @@ Do note that you may need to kill and remove the docker images from your machine
 - `localhost:4000/sessions/<cwid>`: cwid=integer
 - `localhost:4000/sessions/shared/<cwid>`: cwid=integer
 - `localhost:4000/sessions/get/<cwid>/<sessionNumber>`: {cwid,sessionNumber}=integer
+- `localhost:4000/sessions/get/<cwid>/<sessionNumber>`: {cwid,sessionNumber}=integer
+- `localhost:400/sessions/shared/get/<cwid>/<sessionCWID>/<sessionNumber>`: {cwid,sessionCWID,sessionNumber}=integer
 
 ### POST
 - `localhost:4000/login/<cwid>/<password>`: cwid=integer, password=alphanumeric
@@ -46,3 +48,8 @@ Do note that you may need to kill and remove the docker images from your machine
 - `localhost:4000/users/create/<cwid>/<name>/<password>`: cwid=integer, name=alphabetical, password=alphanumeric
 - `localhost:4000/sessions/create`
 - `localhost:4000/sessions/share/<sessionCWID>/<sessionNumber>/<shareToCWID>`: {cwid,sessionNumber,shareToCWID}=integers, respectively
+
+
+### Resources
+- https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+- https://flask.palletsprojects.com/en/1.1.x/
